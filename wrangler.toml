@@ -1,4 +1,4 @@
-name = "worker"
+name = "stripe-test-worker"
 # type = "javascript" is required to use the `[build]` section
 type = "javascript"
 account_id = ""
