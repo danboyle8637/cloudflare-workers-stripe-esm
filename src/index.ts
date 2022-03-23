@@ -25,6 +25,15 @@ export default {
   fetch: router.handle,
 }
 
+async function payment(request: Request, env: Env): Promise<Response> {
+  const stripe = new Stripe(env.STRIPE_TEST_SECRET_KEY, {
+    apiVersion: '2020-08-27',
+    httpClient: Stripe.createFetchHttpClient(),
+  })
+
+  return new Response('Getting Stripe to work with ESM Workers')
+}
+
 async function handleRequest(request: Request, env: Env) {
   let id = env.COUNTER.idFromName('A')
   let obj = env.COUNTER.get(id)
@@ -38,13 +47,4 @@ async function handleRequest(request: Request, env: Env) {
 async function errorHandler(): Promise<Response> {
   const response = new Response('Bad Request', { status: 400 })
   return response
-}
-
-async function payment(request: Request, env: Env): Promise<Response> {
-  const stripe = new Stripe(env.STRIPE_TEST_SECRET_KEY, {
-    apiVersion: '2020-08-27',
-    httpClient: Stripe.createFetchHttpClient(),
-  })
-
-  return new Response('Getting Stripe to work with ESM Workers')
 }
